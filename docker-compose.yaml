@@ -5,10 +5,13 @@ services:
     build:
       context: ./app
     container_name: node_app
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
+    command: ["node", "index.js"]
     ports:
       - "3000:3000"
     networks:
       - node-network
+    tty: true
 
   db:
     image: mysql:8.3.0
