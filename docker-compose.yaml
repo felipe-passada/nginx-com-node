@@ -4,13 +4,14 @@ services:
   app:
     build:
       context: ./app
+    image: felipepassada/node-app
     container_name: node_app
     entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
     command: ["node", "index.js"]
     ports:
       - "3000:3000"
     volumes:
-      - ./app:/usr/src/app:z
+      - /usr/src/app
     networks:
       - node-network
     tty: true
